@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+
+class User extends Authenticatable
+{  use SoftDeletes;
+    use HasFactory, Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nom',
+        'prenom',
+        'login' ,
+        'mot_de_passe',
+        'telephone',
+        'is_admin'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+    protected $dates=['deleted_at'] ;
+
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+   
+}
