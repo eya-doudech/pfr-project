@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
+            $table->string('avatar')->nullable();
             $table->string('login')->unique();
             $table->string('password');
             $table->string('telephone');
@@ -25,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
-           
         });
     }
 

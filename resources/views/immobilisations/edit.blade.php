@@ -57,6 +57,18 @@
                   @else
                     <span class="alert alert-danger">No Records</span>
                   @endif                </div>
+                  {{-- user modif --}}
+                  <div class="form-group">
+                    <label class="form-control-label">Users</label>
+                    @if(!empty($departements))
+                      <select class="form-control" name="departement_id">
+                        @foreach($users as $key=>$value)
+                          <option value="{{$value->id}}" {{$value->id == $immobilisation->user_id ? 'selected':'' }}>{{$value->prenom}}</option>
+                        @endforeach
+                      </select>
+                    @else
+                      <span class="alert alert-danger">No Records</span>
+                    @endif                </div>
                 <div class="form-group">
                   <label class="form-control-label">Date d'entrée</label>
                   <input type="text" id="" class="form-control" name="dateDentree" value="{{ $immobilisation->dateDentree}}">

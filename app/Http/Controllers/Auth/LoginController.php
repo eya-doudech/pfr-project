@@ -42,6 +42,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
         $credentials = $request->only('login', 'password');
+        // dd($credentials);
 
         if (Auth::attempt($credentials)) {
             if (auth()->user()->is_admin == 1) {

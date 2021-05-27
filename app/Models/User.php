@@ -45,5 +45,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-   
+    public function immoblis(){
+        return $this->hasMany(Immobli::class);
+    }
 }

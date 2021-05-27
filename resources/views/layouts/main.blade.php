@@ -12,7 +12,8 @@
       <link rel="stylesheet" href="{{ asset('theme/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css') }}">
       <link rel="stylesheet" href="{{ asset('theme/vendor/remixicon/fonts/remixicon.css') }}">  </head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
-  <body class=" ">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <body class=" ">
   
     <div id="loading">
           <div id="loading-center">
@@ -449,7 +450,7 @@
                           </button>
                           <div class="collapse navbar-collapse" id="navbarSupportedContent">
                               <ul class="navbar-nav ml-auto navbar-list align-items-center">
-                                  <li class="nav-item nav-icon dropdown ml-3">
+                                  {{-- <li class="nav-item nav-icon dropdown ml-3">
                                       <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown"
                                           aria-haspopup="true" aria-expanded="false">
                                           <i class="las la-envelope"></i>
@@ -567,8 +568,8 @@
                                               </div>
                                           </div>
                                       </div>
-                                  </li>
-                                  <li class="caption-content">
+                                  </li> --}}
+                                  {{-- <li class="caption-content">
                                       <a href="#" class="search-toggle dropdown-toggle d-flex align-items-center" id="dropdownMenuButton3" data-toggle="dropdown"
                                           aria-haspopup="true" aria-expanded="false">
                                           <img src="{{asset('theme')}}/images/user/01.jpg" class="avatar-40 img-fluid rounded" alt="user">
@@ -576,7 +577,33 @@
                                               <h6 class="mb-0 line-height">Rick O'shea<i class="las la-angle-down ml-3"></i></h6>
                                           </div>
                                       </a>
+                                  </li> --}}
+                                  @auth
+                                  <li class="nav-item dropdown">
+                                      <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <img src="/images/{{ Auth::user()->avatar }}" class="avatar-40 img-fluid rounded" alt="user">
+                                        {{ Auth::user()->prenom }}
+                                      </a>
+      
+                                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                          <a class="dropdown-item" href="{{ route('logout') }}"
+                                             onclick="event.preventDefault();
+                                                           document.getElementById('logout-form').submit();">
+                                              {{ __('Logout') }}
+                                          </a>
+      
+                                          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                              @csrf
+                                          </form>
+                                          <a class="dropdown-item" href="{{ route('image.upload') }}"
+                                         >
+                                           {{ __('Update Image') }}
+                                       </a>
+                                      </div>
+                                      
                                   </li>
+                                  @endauth
+
                               </ul>
                           </div>
                       </nav>

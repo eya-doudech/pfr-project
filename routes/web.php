@@ -14,6 +14,7 @@ use App\Http\Controllers\{
 };
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\ImageUploadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,9 +31,7 @@ use Illuminate\Support\Facades\Auth;
 //categorie resources
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
 
-Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index']);
 // Route::post('/Auth/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('log');
 // Route::group(['middleware'=>['admin']],function(){
 Route::resource('categories', 'App\Http\Controllers\CategorieController');
@@ -57,3 +56,10 @@ Route::get('/trashed/users/restore/{id}', [UserController::class, 'restore'])->n
 Route::get('/history/users', [UserController::class, 'history'])->name(' users.trashed.history');
 
 // });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//  Image upload routes
+Route::get('image-upload', [ImageUploadController::class, 'imageUpload'])->name('image.upload');
+Route::post('image-upload', [ImageUploadController::class, 'imageUploadPost'])->name('image.upload.post');

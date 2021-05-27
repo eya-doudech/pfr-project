@@ -25,6 +25,7 @@
               <th scope="col">ID</th>
               
               <th scope="col">Désignation</th>
+              <th scope="col">User</th>
               <th scope="col">Code à bar</th>
               <th scope="col">Quantité</th>
               <th scope="col">Catégories</th>
@@ -42,14 +43,15 @@
               <tr>
                 <td scope="row">{{ $key++ }}</td>
                 <td scope="row">{{ $immobilisation->designation}}</td>
+                <td scope="row">{{ $immobilisation->prenom}}</td>
                 <td scope="row">{{ $immobilisation->codeAbar }}</td>
                 <td scope="row">{{ $immobilisation-> quantite}}</td>
                 <td scope="row">{{ $immobilisation->category}}</td>
                 <td scope="row">{{ $immobilisation->departement }}</td>
                 <td scope="row">{{ $immobilisation->dateDentree }}</td>
                 <td scope="row">{{ $immobilisation->dateDeSortie}}</td>
-                <td><a href="{{ route('immobilisations.edit', $immobilisation->id) }}" class="btn btn-sm btn-primary">Modifier</a></td>
-                <td scope="row"><button class="btn btn-sm btn-danger deleteCtg" data-link="{{ route('immobilisations.destroy', $immobilisation->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>
+                <td scope="row"><a href="{{ route('immobilisations.edit', $immobilisation->id) }}" class="btn btn-sm btn-primary">Modifier</a>
+                <button class="btn btn-sm btn-danger deleteCtg" data-link="{{ route('immobilisations.destroy', $immobilisation->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>
               </tr>
             @endforeach
             @endif

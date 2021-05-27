@@ -22,11 +22,11 @@
           <thead class="thead-light">
             <tr>
               <th scope="col">ID</th>
-              
+              <th scope="col">Avatar</th>
+
               <th scope="col">Nom</th>
               <th scope="col">Prenom</th>
               <th scope="col">Login</th>
-              <th scope="col">Mot de passe</th>
               <th scope="col"> Numéro de téléphone</th>
               <th scope="col">Actions</th>
 
@@ -38,13 +38,14 @@
             @foreach ($users as $key => $user)
               <tr>
                 <td scope="row">{{ $key++ }}</td>
+                <td scope="row"><img src="images/{{ $user->avatar }}" class="avatar-40 img-fluid rounded" alt="user"> </td>
+
                 <td scope="row">{{ $user->nom}}</td>
                 <td scope="row">{{ $user->prenom }}</td>
                 <td scope="row">{{ $user->login  }}</td>
-                <td scope="row">{{ $user->password}}</td>
                 <td scope="row">{{ $user->telephone }}</td>
-                <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">Modifier</a></td>
-                <td scope="row"><button class="btn btn-sm btn-danger deleteCtg" data-link="{{ route('users.destroy', $user->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>
+                <td scope="row"><a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">Modifier</a>
+                  <button class="btn btn-sm btn-danger deleteCtg" data-link="{{ route('users.destroy', $user->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>
               </tr>
             @endforeach
             {{-- @endif --}}

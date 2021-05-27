@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Immobli, Departement, Categorie};
+use App\Models\{Immobli, Departement, Categorie, User};
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -24,11 +24,13 @@ class ImmobliController extends Controller
     {
         $this->data['immobilisations'] = Immobli::latest()
             ->crossJoin('departements')
-            ->crossJoin('categories')
+            ->crossJoin('categories')->crossJoin('users')
             ->select([
                 "immoblis.*",
                 "categories.designation as category",
-                "departements.designation as departement"
+                "departements.designation as departement",
+                "users.prenom as prenom",
+
             ])
             ->get();
         $this->data['immobilisations'] = collect($this->data['immobilisations'])->keyBy('id');
@@ -55,6 +57,7 @@ class ImmobliController extends Controller
     {
         $this->data['categories']   = Categorie::get();
         $this->data['departements'] = Departement::get();
+        $this->data['users'] = User::get();
         return view('immobilisations.create', $this->data);
     }
 
@@ -72,6 +75,7 @@ class ImmobliController extends Controller
             'quantite' => 'required',
             'categorie_id' => 'required',
             'departement_id' => 'required',
+            'user_id' => 'required',
             'dateDentree' => 'required',
             'dateDeSortie' => 'required'
         ]);
@@ -83,10 +87,12 @@ class ImmobliController extends Controller
                 'quantite' => $request->input('quantite'),
                 'categorie_id' => $item,
                 'departement_id' => $request->input('departement_id'),
+                'user_id' => $request->input('user_id'),
                 'dateDentree' => $request->input('dateDentree'),
                 'dateDeSortie' => $request->input('dateDeSortie')
             ];
             Immobli::create($data[$key]);
+
         endforeach;
 
         return redirect()->route('immobilisations.index')->with('success', 'Immobilisation bien ajoutée'); /* ki nzid donnée yhezni le*/
@@ -114,6 +120,8 @@ class ImmobliController extends Controller
     {
         $this->data['categories']   = Categorie::get();
         $this->data['departements'] = Departement::get();
+        $this->data['users'] = User::get();
+
         $this->data['immobilisation'] = Immobli::findOrFail($id);
         return view('immobilisations.edit', $this->data);
     }

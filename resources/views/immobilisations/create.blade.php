@@ -58,6 +58,21 @@
                     <span class="alert alert-danger">No Records</span>
                   @endif
                 </div>
+                {{-- select user --}}
+                <div class="form-group">
+                  <label class="form-control-label">User</label>
+                  @if(!empty($users))
+                    <select class="form-control" name="user_id">
+                      @foreach($users as $key=>$value)
+                        <option value="{{$value->id}}">{{$value->prenom}}</option>
+                      @endforeach
+                    </select>
+                    
+                  @else
+                    <span class="alert alert-danger">No Records</span>
+                  @endif
+                </div>
+
                 <div class="form-group">
                   <label class="form-control-label">Date d'entrée</label>
                   <input type="date" id="" class="form-control" name="dateDentree" placeholder="entrer la date d'entrée" value="">

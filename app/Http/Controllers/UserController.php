@@ -16,10 +16,10 @@ class UserController extends Controller
 {
     use RegistersUsers;
     protected $redirectTo = RouteServiceProvider::HOME;
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -116,13 +116,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $input = $request->all();
+            $user = User::findOrFail($id);
+            $input = $request->all();
 
-        $user->fill($input);
+            $user->fill($input);
 
-        $user->save();
-        return redirect()->route('users.index');
+            $user->save();
+            return redirect()->route('users.index');
     }
 
     /**

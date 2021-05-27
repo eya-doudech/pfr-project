@@ -15,15 +15,16 @@ class CreateImmoblisTable extends Migration
     {
         Schema::create('immoblis', function (Blueprint $table) {
             $table->id();
-            $table->string('codeAbar') ;
-            $table->string('designation') ;
-            $table->string('quantite') ;
-            
+            $table->string('codeAbar');
+            $table->string('designation');
+            $table->string('quantite');
+            $table->foreignId('user_id')->constrained()->cascade('onDelete');
 
-            $table->foreignId('categorie_id')->constrained()->cascade('onDelete') ;
-            $table->foreignId('departement_id')->constrained()->cascade('onDelete') ;
-            $table->string('dateDentree') ;
-            $table->string('dateDeSortie') ;
+
+            $table->foreignId('categorie_id')->constrained()->cascade('onDelete');
+            $table->foreignId('departement_id')->constrained()->cascade('onDelete');
+            $table->string('dateDentree');
+            $table->string('dateDeSortie');
             $table->softDeletes();
 
             $table->timestamps();
