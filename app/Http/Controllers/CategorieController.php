@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class CategorieController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +18,8 @@ class CategorieController extends Controller
      */
     public function index()
     {
-       $this->data['categories'] = Categorie::latest()->paginate(5); /*modele*/
-        return view ('categories.index', $this->data);
+        $this->data['categories'] = Categorie::latest()->paginate(5); /*modele*/
+        return view('categories.index', $this->data);
     }
 
     /**
@@ -25,8 +29,8 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        $this->data['families'] = ['Corporelle','Incorporelle','Financière'];
-        return view ('categories.create',$this->data);
+        $this->data['families'] = ['Corporelle', 'Incorporelle', 'Financière'];
+        return view('categories.create', $this->data);
     }
 
 
@@ -40,13 +44,13 @@ class CategorieController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'designation'=>'required',
-            'famille'=>'required',
+            'designation' => 'required',
+            'famille' => 'required',
 
-            
+
         ]);
         Categorie::create($request->all());
-        return redirect()->route('categories.index')->with('success', 'categorie bien ajouté'); /* ki nzid donnée yhezni lel p index */ 
+        return redirect()->route('categories.index')->with('success', 'categorie bien ajouté'); /* ki nzid donnée yhezni lel p index */
     }
 
     /**
@@ -69,10 +73,9 @@ class CategorieController extends Controller
      */
     public function edit($id)
     {
-        $this->data['families'] = ['Corporelle','Incorporelle','Financière'];
+        $this->data['families'] = ['Corporelle', 'Incorporelle', 'Financière'];
         $this->data['categorie'] = Categorie::findOrFail($id);
         return view('categories.edit', $this->data);
-       
     }
 
     /**
@@ -102,30 +105,28 @@ class CategorieController extends Controller
     {
         $categorie = Categorie::find($id);
         $categorie->delete();
-        return response()->json(["success"=>true]);
+        return response()->json(["success" => true]);
     }
     public function trash()
     {
         $this->data['trashed_categories'] = Categorie::onlyTrashed()->get();
-        return view('categories.trash',$this->data);
+        return view('categories.trash', $this->data);
     }
     public function history()
     {
         $this->data['categories'] = Categorie::withTrashed()->get();
-        foreach($this->data['categories'] as $key=>$item)
-        {
-            if(!empty($item->deleted_at)){
+        foreach ($this->data['categories'] as $key => $item) {
+            if (!empty($item->deleted_at)) {
                 $item->status = 1;
-            }else{
+            } else {
                 $item->status = 0;
             }
         }
-        return view('categories.history',$this->data);
+        return view('categories.history', $this->data);
     }
     public function restore($id)
     {
-        Categorie::withTrashed()->where('id',$id)->restore();
-        return response()->json(['success'=>true]);
+        Categorie::withTrashed()->where('id', $id)->restore();
+        return response()->json(['success' => true]);
     }
 }
-

@@ -34,7 +34,7 @@
             </tr>
           </thead>
           <tbody>
-            @if(!empty($users))
+            {{-- @if(!empty($users)) --}}
             @foreach ($users as $key => $user)
               <tr>
                 <td scope="row">{{ $key++ }}</td>
@@ -47,7 +47,7 @@
                 <td scope="row"><button class="btn btn-sm btn-danger deleteCtg" data-link="{{ route('users.destroy', $user->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>
               </tr>
             @endforeach
-            @endif
+            {{-- @endif --}}
             
           </tbody> 
         </table>

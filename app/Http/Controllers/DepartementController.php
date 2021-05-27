@@ -8,20 +8,21 @@ use Illuminate\Http\Request;
 
 class DepartementController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    
+
     {
 
-        $this->data['departements'] = Departement ::latest()->paginate(5); /*modele*/
-        return view ('departements.index', $this->data);
-
-
-        
+        $this->data['departements'] = Departement::latest()->paginate(5); /*modele*/
+        return view('departements.index', $this->data);
     }
 
     /**
@@ -31,8 +32,7 @@ class DepartementController extends Controller
      */
     public function create()
     {
-        return view ('departements.create') ;
-
+        return view('departements.create');
     }
 
     /**
@@ -42,16 +42,15 @@ class DepartementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {
         $request->validate([
-            'designation'=>'required',
-            'localisation'=>'required',
+            'designation' => 'required',
+            'localisation' => 'required',
 
         ]);
 
         Departement::create($request->all());
         return redirect()->route('departements.index')->with('success', 'Département bien ajouté'); /* ki nzid donnée yhezni le*/
-
     }
 
     /**
@@ -76,7 +75,6 @@ class DepartementController extends Controller
     {
         $this->data['departement'] = Departement::findOrFail($id);
         return view('departements.edit', $this->data);
-       
     }
 
     /**
@@ -86,10 +84,10 @@ class DepartementController extends Controller
      * @param  \App\Models\departement  $departement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $departement = Departement::findOrFail($id);
-        $input = $request->all() ;
+        $input = $request->all();
 
         $departement->fill($input);
 
@@ -106,33 +104,29 @@ class DepartementController extends Controller
     public function destroy($id)
     {
         $departement = Departement::find($id);
-        $departement>delete();
-        return response()->json(["success"=>true]);
-
+        $departement-> delete();
+        return response()->json(["success" => true]);
     }
     public function trash()
     {
         $this->data['trashed_departements'] = Departement::onlyTrashed()->get();
-        return view('departements.trash',$this->data);
+        return view('departements.trash', $this->data);
     }
     public function history()
     {
         $this->data['departements'] = Departement::withTrashed()->get();
-        foreach($this->data['departements'] as $key=>$item)
-        {
-            if(!empty($item->deleted_at)){
+        foreach ($this->data['departements'] as $key => $item) {
+            if (!empty($item->deleted_at)) {
                 $item->status = 1;
-            }else{
+            } else {
                 $item->status = 0;
             }
         }
-        return view('departements.history',$this->data);
+        return view('departements.history', $this->data);
     }
     public function restore($id)
     {
-        Departement::withTrashed()->where('id',$id)->restore();
-        return response()->json(['success'=>true]);
+        Departement::withTrashed()->where('id', $id)->restore();
+        return response()->json(['success' => true]);
     }
-
-
 }

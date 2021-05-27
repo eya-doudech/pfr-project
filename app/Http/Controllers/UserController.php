@@ -18,14 +18,14 @@ class UserController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'nom' => ['required', 'string', 'max:255'],
             'prenom' => ['required', 'string', 'max:255'],
-             'login' => ['required', 'string', 'max:255', 'unique:users'],
+            'login' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'telephone' => ['required', 'string', 'max:255'],
 
@@ -40,7 +40,7 @@ class UserController extends Controller
     public function index()
     {
         $this->data['users'] = User::latest()->paginate(5); /*modele*/
-        return view ('users.index', $this->data);
+        return view('users.index', $this->data);
     }
 
     /**
@@ -50,8 +50,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view ('users.create') ;
-
+        return view('users.create');
     }
 
     /**
@@ -63,24 +62,24 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom'=>'required',
-            'prenom'=>'required',
-            'login'=>'required',
-            'password'=>'required',
-            'telephone'=>'required',
-            'is_admin'=>'required'
+            'nom' => 'required',
+            'prenom' => 'required',
+            'login' => 'required',
+            'password' => 'required',
+            'telephone' => 'required',
+            'is_admin' => 'required'
         ]);
 
-       // User::create($request->all());
-       $user = new User();
-$user->password = Hash::make($request->password);
-$user->login = $request->login;
-$user->nom = $request->nom ;
-$user->prenom = $request->prenom ;
-$user->telephone= $request->telephone ;
-$user->is_admin= $request->is_admin;
+        // User::create($request->all());
+        $user = new User();
+        $user->password = Hash::make($request->password);
+        $user->login = $request->login;
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->telephone = $request->telephone;
+        $user->is_admin = $request->is_admin;
 
-$user->save();
+        $user->save();
         return redirect()->route('users.index')->with('success', 'Utilisateur bien ajouté');
     }
 
@@ -118,7 +117,7 @@ $user->save();
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $input = $request->all() ;
+        $input = $request->all();
 
         $user->fill($input);
 
@@ -135,30 +134,29 @@ $user->save();
     public function destroy($id)
     {
         $user = User::find($id);
-        $user>delete();
-        return response()->json(["success"=>true]);
+        $user->delete();
+        return response()->json(["success" => true]);
     }
     public function trash()
     {
         $this->data['trashed_users'] = User::onlyTrashed()->get();
-        return view('users.trash',$this->data);
+        return view('users.trash', $this->data);
     }
     public function history()
     {
         $this->data['users'] = User::withTrashed()->get();
-        foreach($this->data['users'] as $key=>$item)
-        {
-            if(!empty($item->deleted_at)){
+        foreach ($this->data['users'] as $key => $item) {
+            if (!empty($item->deleted_at)) {
                 $item->status = 1;
-            }else{
+            } else {
                 $item->status = 0;
             }
         }
-        return view('users.history',$this->data);
+        return view('users.history', $this->data);
     }
     public function restore($id)
     {
-        User::withTrashed()->where('id',$id)->restore();
-        return response()->json(['success'=>true]);
+        User::withTrashed()->where('id', $id)->restore();
+        return response()->json(['success' => true]);
     }
 }

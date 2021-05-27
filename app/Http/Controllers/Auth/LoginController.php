@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
@@ -11,8 +12,8 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-   
-    
+
+
 
     use AuthenticatesUsers;
 
@@ -31,13 +32,11 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-     
-
     }
     public function login(Request $request)
-    {   
+    {
         $input = $request->all();
-   
+
         $this->validate($request, [
             'login' => 'required',
             'password' => 'required',
@@ -47,18 +46,14 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             if (auth()->user()->is_admin == 1) {
                 return redirect()->route('admin.home');
-            }else{
-          //      return redirect()->route('login');
-          return 'Erreur, NotAdmin' ;
+            } else {
+                //      return redirect()->route('login');
+                return 'Erreur, NotAdmin';
             }
-        }
-        else{
-            
+        } else {
+
             //  return redirect()->route('login') ->with('error','login  And Password Are Wrong.');
-            return 'Login And Password Are Wrong.' ;
-          }
-           
-     
-          
+            return 'Login And Password Are Wrong.';
+        }
     }
 }
