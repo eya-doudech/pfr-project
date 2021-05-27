@@ -28,7 +28,8 @@
               <th scope="col">Départements</th>
               <th scope="col">Date d'entrée</th>
               <th scope="col">Date de sortie</th>
-              <th scope="col">Statut</th>
+              <th scope="col">Actions</th>
+
           
 
             </tr>

@@ -36,10 +36,10 @@
                 </div>
                 <div class="form-group">
                   <label class="form-control-label">Mot de passe</label>
-                  <input type="text" id="" class="form-control" name="mot_de_passe" value="{{ $user->mot_de_passe}}">
+                  <input type="text" id="" class="form-control" name="password" value="{{ $user->mot_de_passe}}">
                 </div>
                 <div class="form-group">
-                  <label class="form-control-label">Numéro de téléphone/label>
+                  <label class="form-control-label">Numéro de téléphone</label>
                   <input type="text" id="" class="form-control" name="telephone" value="{{ $user->telephone}}">
                 </div>
               </div>

@@ -22,10 +22,12 @@ class User extends Authenticatable
         'nom',
         'prenom',
         'login' ,
-        'mot_de_passe',
+        'password',
         'telephone',
         'is_admin'
     ];
+    protected $dates=['deleted_at'] ;
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,7 +38,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    protected $dates=['deleted_at'] ;
 
 
     /**

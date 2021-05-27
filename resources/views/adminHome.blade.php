@@ -56,7 +56,6 @@
                                                               <span>Immobilisations</span>
                                                           </a>
                                                       </li>
-                                                      
                                                       <li class=" ">
                                                           <a href="{{URL('users')}}" class="">
                                                               <span>Utilisateurs</span>
@@ -223,15 +222,7 @@
                                                                       </li>
                                                                   </ul>
                                                               </li>
-                                                              <li class=" ">
-                                                      <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <i class="la la-sign-out"></i>Se déconnecter
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form> 
-                                    </li>
+                                                              
                                                               <li class=" ">
                                                                   <a href="#auth" class="collapsed" data-toggle="collapse" aria-expanded="false">
                                                                       <span>Authentication</span>

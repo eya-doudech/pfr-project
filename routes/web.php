@@ -4,11 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     TemplateController,
     RegisterController,
-    LoginController,
+   
     CategorieController,
     DepartementController,
     ImmobliController,
     UserController,
+    HomeController,
+   Auth \LoginController,
+   
 };
 
 /*
@@ -25,12 +28,13 @@ use App\Http\Controllers\{
 
 
 //categorie resources
+Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
 Auth::routes();
-Route::get('/',[LoginController::class,'index'])->name('auth.login.index');
 
-Route::group(['middleware'=>['admin']],function(){
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get ('/Auth/login', [App\Http\Controllers\HomeController::class, 'index'])->name('login');
+Route::post('/Auth/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('log');
+// Route::group(['middleware'=>['admin']],function(){
     Route::resource('categories','App\Http\Controllers\CategorieController');
     Route::get('/trashed/categories',[CategorieController::class,'trash'])->name('categories.trashed');
     Route::get('/trashed/categories/restore/{id}',[CategorieController::class,'restore'])->name('categories.trashed.restore');
@@ -50,6 +54,4 @@ Route::group(['middleware'=>['admin']],function(){
     Route::get('/trashed/users/restore/{id}',[UserController::class,'restore'])->name('users.trashed.restore');
     Route::get('/history/users',[UserController::class,'history'])->name(' users.trashed.history');
 
-});
-
-
+// });

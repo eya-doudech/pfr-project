@@ -23,7 +23,9 @@
               <div class="col-lg-6">
                 <div class="form-group">
                   <label class="form-control-label">Nom</label>
-                  <input type="text" id="" class="form-control" name="nom" placeholder="entrer le nom value="">
+                  <input type="text" id="" class="form-control" name="nom" placeholder="entrer le nom" value="">
+               
+                
                 </div>
                 <div class="form-group">
                   <label class="form-control-label">Prenom</label>
@@ -31,14 +33,15 @@
                 </div>
                 <div class="form-group">
                   <label class="form-control-label">Login </label>
-                  <input type="text" id="" class="form-control" name="login" placeholder="entrer le login" value="">
+                  <input type="text" id="" class="form-control" name="login" placeholder="entrer le login" value="{{old('login')}}">
+                 
                 </div>
                 <div class="form-group">
                   <label class="form-control-label">Mot de passe</label>
-                  <input type="text" id="" class="form-control" name="mot_de_passe" placeholder="entrer le mot de passe " value="">
+                  <input type="text" id="" class="form-control" name="password" placeholder="entrer le mot de passe " value="">
                 </div>
                 <div class="form-group">
-                  <label class="form-control-label">Numéro de téléphone</label>
+                  <label class="form-control-label"> Numéro de téléphone</label>
                   <input type="text" id="" class="form-control" name="telephone" placeholder="entrer le numéro de téléphone " value="">
                 </div>
                 <div class="form-group">

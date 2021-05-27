@@ -37,11 +37,13 @@
                 <td scope="row">{{ $user->nom}}</td>
                 <td scope="row">{{ $user->prenom }}</td>
                 <td scope="row">{{ $user->login  }}</td>
-                <td scope="row">{{ $user->mot_de_passe}}</td>
+                <td scope="row">{{ $user->password}}</td>
                 <td scope="row">{{ $user->telephone }}</td>
+                <th scope="col">Actions</th>
+
 
                 <td scope="row">{{ $user->status == 1 ? 'Deleted':'Exist'  }}</td>
-                @if($departement->status == 1)
+                @if($user->status == 1)
                 <td scope="row"><button class="btn btn-sm btn-warning deleteCtg" data-btn="Yes, restore it!" data-body="your data have been restored" data-title="restore" data-ajax="GET" data-link="{{ URL('/trashed/users/restore/'.$user->id) }}" data-token="{{csrf_token()}}" >Restore</button></td>
                 @else
                 <td scope="row"><button class="btn btn-sm btn-danger deleteCtg" data-btn="Yes, delete it!" data-body="your data have been deleted" data-title="delete" data-ajax="DELETE" data-link="{{ route('users.destroy', $user->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>

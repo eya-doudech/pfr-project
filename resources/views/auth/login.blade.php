@@ -1,6 +1,8 @@
 @extends('layouts.main_auth')
 
 @section('contents')
+<form action="{{ route('login') }}" method="POST">
+
 <section class="login-content">
          <div class="container h-100">
             <div class="row justify-content-center align-items-center height-self-center">
@@ -9,7 +11,9 @@
                      <div class="card-body text-center">
                         <h2>Sign In</h2>
                         <p>Login to stay connected.</p>
-                        <form method="POST" action="{{ route('login') }}">
+
+                   
+
                            @csrf
                            <div class="row">
                               <div class="col-lg-12">
@@ -28,6 +32,7 @@
                               
                            </div>
                            <button type="submit" class="btn btn-primary">Sign In</button>
+                           
                         </form>
                      </div>
                   </div>

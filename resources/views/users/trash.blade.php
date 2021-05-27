@@ -26,6 +26,8 @@
               <th scope="col">Login</th>
               <th scope="col">Mot de passe</th>
               <th scope="col">Numéro de téléphone</th>
+              <th scope="col">Actions</th>
+
 
             </tr>
           </thead>
@@ -37,7 +39,7 @@
                 <td scope="row">{{ $user->nom}}</td>
                 <td scope="row">{{ $user->prenom }}</td>
                 <td scope="row">{{ $user->login  }}</td>
-                <td scope="row">{{ $user->mot_de_passe}}</td>
+                <td scope="row">{{ $user->password}}</td>
                 <td scope="row">{{ $user->telephone }}</td>
                 <td scope="row"><button class="btn btn-sm btn-danger deleteCtg" data-link="{{ URL('/trashed/users/restore/'.$user->id) }}" data-token="{{csrf_token()}}" >Restore</button></td>
               </tr>

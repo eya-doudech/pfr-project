@@ -22,7 +22,12 @@
               <th scope="col">ID</th>
               
               <th scope="col">Désignation</th>
-              <th scope="col">Localisation</th>
+              <th scope="col">Code à bar</th>
+              <th scope="col">Quantité</th>
+              <th scope="col">Catégories</th>
+              <th scope="col">Départements</th>
+              <th scope="col">Date d'entrée</th>
+              <th scope="col">Date de sortie</th>
               <th scope="col">Actions</th>
           
 

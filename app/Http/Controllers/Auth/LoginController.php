@@ -1,23 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
+   
+    
 
     use AuthenticatesUsers;
 
@@ -36,5 +31,34 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+     
+
+    }
+    public function login(Request $request)
+    {   
+        $input = $request->all();
+   
+        $this->validate($request, [
+            'login' => 'required',
+            'password' => 'required',
+        ]);
+        $credentials = $request->only('login', 'password');
+
+        if (Auth::attempt($credentials)) {
+            if (auth()->user()->is_admin == 1) {
+                return redirect()->route('admin.home');
+            }else{
+          //      return redirect()->route('login');
+          return 'Erreur, NotAdmin' ;
+            }
+        }
+        else{
+            
+            //  return redirect()->route('login') ->with('error','login  And Password Are Wrong.');
+            return 'Login And Password Are Wrong.' ;
+          }
+           
+     
+          
     }
 }

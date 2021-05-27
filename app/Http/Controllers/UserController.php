@@ -4,10 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Providers\RouteServiceProvider;
+
+
 
 
 class UserController extends Controller
 {
+    use RegistersUsers;
+    protected $redirectTo = RouteServiceProvider::HOME;
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'nom' => ['required', 'string', 'max:255'],
+            'prenom' => ['required', 'string', 'max:255'],
+             'login' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'telephone' => ['required', 'string', 'max:255'],
+
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,12 +66,21 @@ class UserController extends Controller
             'nom'=>'required',
             'prenom'=>'required',
             'login'=>'required',
-            'mot_de_passe'=>'required',
+            'password'=>'required',
             'telephone'=>'required',
             'is_admin'=>'required'
         ]);
 
-        User::create($request->all());
+       // User::create($request->all());
+       $user = new User();
+$user->password = Hash::make($request->password);
+$user->login = $request->login;
+$user->nom = $request->nom ;
+$user->prenom = $request->prenom ;
+$user->telephone= $request->telephone ;
+$user->is_admin= $request->is_admin;
+
+$user->save();
         return redirect()->route('users.index')->with('success', 'Utilisateur bien ajouté');
     }
 
@@ -82,7 +115,7 @@ class UserController extends Controller
      * @param  \App\Models\Utilisateurs  $utilisateurs
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Utilisateurs $utilisateurs)
+    public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
         $input = $request->all() ;
