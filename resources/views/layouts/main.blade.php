@@ -57,6 +57,11 @@
                                                               <span>Immobilisations</span>
                                                           </a>
                                                       </li>
+                                                      <li class=" ">
+                                                        <a href="{{URL('modifications')}}" class="">
+                                                            <span>Modifications</span>
+                                                        </a>
+                                                    </li>
                                                       
                                                       <li class=" ">
                                                           <a href="{{URL('users')}}" class="">

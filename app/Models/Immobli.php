@@ -28,4 +28,8 @@ class Immobli extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function modifications()
+    {
+        return $this->hasMany(Modification::class);
+    }
 }

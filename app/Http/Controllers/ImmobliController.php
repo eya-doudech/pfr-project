@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Immobli, Departement, Categorie, User};
+use App\Models\{Immobli, Departement, Categorie, User, Modification};
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -138,11 +138,40 @@ class ImmobliController extends Controller
 
         $immobilisation = Immobli::findOrFail($id);
         $input = $request->all();
+        // dd($immobilisation);
+
+        // Saving modifications history
+        foreach ($input as $key => $item) {
+            // var_dump($item);
+            if ($key !== "_method" && $key !== "_token") {
+                if ((string)$immobilisation[$key] !== $item) {
+                    $data_row = [
+                        'immobli_id' => $id,
+                        'modified_attribute' => $key,
+                        'old_val' => $immobilisation[$key],
+                        'new_val' => $item
+                    ];
+                    // dd($data_row);
+
+                    Modification::create($data_row);
+                }
+            }
+        }
 
         $immobilisation->fill($input);
 
         $immobilisation->save();
         return redirect()->route('immobilisations.index');
+    }
+
+    public function modifications()
+    {
+        // $this->data['categories']   = Categorie::get();
+        // $this->data['departements'] = Departement::get();
+        // $this->data['users'] = User::get();
+        $this->data['modifications'] = Modification::get();
+        // dd($this->data['modifications']);
+        return view('modifications.index', $this->data);
     }
 
     /**

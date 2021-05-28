@@ -48,8 +48,8 @@ class LoginController extends Controller
             if (auth()->user()->is_admin == 1) {
                 return redirect()->route('admin.home');
             } else {
-                //      return redirect()->route('login');
-                return 'Erreur, NotAdmin';
+                return redirect()->route('home');
+                // return 'Erreur, NotAdmin';
             }
         } else {
 

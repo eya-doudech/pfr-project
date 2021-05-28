@@ -1,4 +1,4 @@
-<!doctype html>
+{{-- <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -698,4 +698,11 @@
     @yield('scripts')
   </body>
 
-</html>
+</html> --}}
+@extends('layouts.main')
+
+@section('contents')
+
+<div class="card-header">{{ __('Admin Dashboard') }}</div>
+
+@endsection
