@@ -116,6 +116,19 @@ class UserController extends Controller
     }
 
     /**
+     * get User details
+     */
+    public function fetchUser(Request $request) {
+        $this->validate($request, [
+            'login' => 'required'
+        ]);
+
+        return User::query()
+        ->where('login', $request->get('login'))
+        ->get();
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Utilisateurs  $utilisateurs

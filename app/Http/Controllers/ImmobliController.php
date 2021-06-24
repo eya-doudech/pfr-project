@@ -23,14 +23,14 @@ class ImmobliController extends Controller
     public function index()
     {
         $this->data['immobilisations'] = Immobli::latest()
-            ->crossJoin('departements')
-            ->crossJoin('categories')->crossJoin('users')
+            ->join('departements','departements.id', '=' ,'immoblis.departement_id')
+            ->join('categories', 'categories.id','=' , 'immoblis.categorie_id')
+            ->join('users','users.id','=','immoblis.user_id')
             ->select([
                 "immoblis.*",
                 "categories.designation as category",
                 "departements.designation as departement",
                 "users.prenom as prenom",
-
             ])
             ->get();
         $this->data['immobilisations'] = collect($this->data['immobilisations'])->keyBy('id');
@@ -44,7 +44,7 @@ class ImmobliController extends Controller
         endforeach;
         $pageSize = 10;
         $this->data['immobilisations'] = $this->PaginationHelper($this->data['immobilisations'], $pageSize);
-
+        
         return view('immobilisations.index', $this->data);
     }
 
@@ -133,7 +133,7 @@ class ImmobliController extends Controller
      */
     public function show($id)
     {
-        $immonbilisation = Immobli::findOrFail($id);
+        $immobilisation = Immobli::findOrFail($id);
         return view('immobilisations.show', compact('immobilisation'));
     }
 

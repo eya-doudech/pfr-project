@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImmobliController;
-
+use App\Http\Controllers\ImmobiliController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,7 +26,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     
 });
 Route::get('immobilisations', [ImmobliController::class, 'indexapi']);
-Route::post("login",[UserController::class,'auth']);
+Route::post('login',[UserController::class,'auth']);
+Route::get('users',[UserController::class,'fetchUser']);
+Route::get('immobli',[ImmobiliController::class,'fetchDetails']);
+
 
 //Route::get('/',CategorieController::class,"index");
 Route::group(['middleware'=>'is_admin'],function () {

@@ -41,10 +41,10 @@
             @if(!empty($immobilisations))
             @foreach ($immobilisations as $key => $immobilisation)
               <tr>
-                <td scope="row">{{  $immobilisation->id}}</td>
+                <td scope="row">{{ $immobilisation->id}}</td>
                 <td scope="row">{{ $immobilisation->designation}}</td>
                 <td scope="row">{{ $immobilisation->prenom}}</td>
-                <td scope="row">{{ $immobilisation->codeAbar }}</td>
+                <td scope="row">{{ $immobilisation->codeAbar}}</td>
                 <td scope="row">{{ $immobilisation->quantite}}</td>
                 <td scope="row">{{ $immobilisation->category}}</td>
                 <td scope="row">{{ $immobilisation->departement }}</td>
