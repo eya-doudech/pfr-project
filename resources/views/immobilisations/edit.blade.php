@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form action="{{ route('immobilisations.update', $immobilisation->id)}}" method="POST">
+        <form action="{{ route('immobilisations.update', $immobilisation)}}" method="POST">
           @method('PUT')
           @csrf
           <h6 class="heading-small text-muted mb-4">Information</h6>
@@ -24,7 +24,7 @@
               <div class="col-lg-6">
                 
                 <div class="form-group">
-                  <label class="form-control-label" > Code à bar </label>
+                  <label class="form-control-label" > Code à barre </label>
                   <input type="text" id="" class="form-control" name=" codeAbar" value="{{ $immobilisation->codeAbar}}">
                 </div>
                 <div class="form-group">
@@ -61,7 +61,7 @@
                   <div class="form-group">
                     <label class="form-control-label">Users</label>
                     @if(!empty($departements))
-                      <select class="form-control" name="departement_id">
+                      <select class="form-control" name="user_id">
                         @foreach($users as $key=>$value)
                           <option value="{{$value->id}}" {{$value->id == $immobilisation->user_id ? 'selected':'' }}>{{$value->prenom}}</option>
                         @endforeach

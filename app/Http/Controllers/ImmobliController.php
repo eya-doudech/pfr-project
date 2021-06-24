@@ -173,31 +173,31 @@ class ImmobliController extends Controller
             if ($key !== "_method" && $key !== "_token") {
                 if ((string)$immobilisation[$key] !== $item) {
                     $data_row = [
+                        'immobli_id' => $id,
                         'immobli_name' => $id,
                         'modified_attribute' => $key,
                         'old_val' => $immobilisation[$key],
                         'new_val' => $item
                     ];
                     // dd($data_row);
-
                     Modification::create($data_row);
                 }
             }
         }
 
         $immobilisation->fill($input);
-
         $immobilisation->save();
         return redirect()->route('immobilisations.index');
     }
-
     public function modifications()
     {
-        // $this->data['categories']   = Categorie::get();
-        // $this->data['departements'] = Departement::get();
-        // $this->data['users'] = User::get();
-        $this->data['modifications'] = Modification::get();
-        // dd($this->data['modifications']);
+        $this->data['modifications'] = Modification::query()
+        ->join('immoblis','immoblis.id','=','modifications.immobli_id')
+        ->select([
+            "modifications.*",
+            "immoblis.designation as designation",
+        ])
+        ->get();
         return view('modifications.index', $this->data);
     }
 

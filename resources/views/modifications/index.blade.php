@@ -24,7 +24,7 @@
             <tr>
               <th scope="col">ID</th>
               
-              <th scope="col">immobli_id</th>
+              <th scope="col">immobli_designation</th>
               <th scope="col">modified_attribute</th>
               <th scope="col">old_val</th>
               <th scope="col">new_val</th>
@@ -36,7 +36,7 @@
             @foreach ($modifications as $key => $modification)
               <tr>
                 <td scope="row">{{ $key++ }}</td>
-                <td scope="row">{{ $modification->immobli_id}}</td>
+                <td scope="row">{{ $modification->designation}}</td>
                 <td scope="row">{{ $modification->modified_attribute}}</td>
                 <td scope="row">{{ $modification->old_val }}</td>
                 <td scope="row">{{ $modification->new_val}}</td>
