@@ -17,7 +17,7 @@ class departement extends Model
 
     public function immoblis()
     {
-        return $this->hasMany(Immobli::class);
+        return $this->belongsTo(Immobli::class);
     }
 
 }

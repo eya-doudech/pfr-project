@@ -37,8 +37,8 @@
                 <td scope="row">{{ $key++ }}</td>
                 <td scope="row">{{ $departement->designation }}</td>
                 <td scope="row">{{ $departement->localisation }}</td>
-                <td><a href="{{ route('departements.edit', $departement->id) }}" class="btn btn-sm btn-primary">Modifier</a></td>
-                <td scope="row"><button class="btn btn-sm btn-danger deleteCtg" data-link="{{ route('departements.destroy', $departement->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>
+                <td><a href="{{ route('departements.edit', $departement->id) }}" class="btn btn-sm btn-primary">Modifier</a>
+                <button class="btn btn-sm btn-danger deleteCtg" data-link="{{ route('departements.destroy', $departement->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>
               </tr>
             @endforeach
             @endif

@@ -8,14 +8,34 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Providers\RouteServiceProvider;
-
-
+ 
 
 
 class UserController extends Controller
 {
     use RegistersUsers;
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    function auth(Request $request)
+    {
+        $user= User::where('login', $request->login)->first();
+        // print_r($data);
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response([
+                    'message' => ['These credentials do not match our records.']
+                ], 202);
+            }
+        
+             $token = $user->createToken('my-app-token')->plainTextToken;
+        
+            $response = [
+                'user' => $user,
+                'token' => $token
+            ];
+        
+             return response($response, 201);
+    }
+
     // public function __construct()
     // {
     //     $this->middleware('auth');

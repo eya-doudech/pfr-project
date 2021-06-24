@@ -78,7 +78,7 @@
                   <input type="text" id="" class="form-control" name="dateDeSortie"value="{{ $immobilisation->dateDeSortie}}">
                 </div>
               </div>
-              </div>
+             
             </div>
             <div class="row">
               <div class="col-lg-6">

@@ -17,12 +17,12 @@
       <div class="card-body">
         <form action="{{ route('immobilisations.store') }}" method="POST">
           @csrf
-          <h6 class="heading-small text-muted mb-4">Information</h6>
+          <h6 class="heading-small text-muted mb-4">Informations</h6>
           <div class="pl-lg-4">
             <div class="row">
               <div class="col-lg-6">
               <div class="form-group">
-                  <label class="form-control-label">Code à bar</label>
+                  <label class="form-control-label">Code à barre</label>
                   <input type="text" id="" class="form-control" name="codeAbar"  placeholder="entrer le code à bar"   value="">
                 </div>
                 <div class="form-group">
@@ -34,9 +34,9 @@
                   <input type="text" id="" class="form-control" name="quantite" placeholder="entrer la quantité"  value="">
                 </div>
                 <div class="form-group">
-                  <label class="form-control-label">Catégories</label>
+                  <label class="form-control-label">Catégorie</label>
                   @if(!empty($categories))
-                  <select class="form-control" name="categorie_id[]" multiple >
+                  <select class="form-control" name="categorie_id" >
                       @foreach($categories as $key=>$value)
                         <option value="{{$value->id}}">{{$value->designation}}</option>
                       @endforeach
@@ -46,7 +46,7 @@
                   @endif
                 </div>
                 <div class="form-group">
-                  <label class="form-control-label">Départements</label>
+                  <label class="form-control-label">Département</label>
                   @if(!empty($departements))
                     <select class="form-control" name="departement_id">
                       @foreach($departements as $key=>$value)
@@ -60,7 +60,7 @@
                 </div>
                 {{-- select user --}}
                 <div class="form-group">
-                  <label class="form-control-label">User</label>
+                  <label class="form-control-label">Utilisateur</label>
                   @if(!empty($users))
                     <select class="form-control" name="user_id">
                       @foreach($users as $key=>$value)
@@ -80,7 +80,7 @@
                 <div class="form-group">
                   <label class="form-control-label">Date de sortie</label>
                   <input type="date" id="" class="form-control" name="dateDeSortie" placeholder="entrer la date de sortie"  value="">
-                </div>
+           
             </div>
             <div class="row">
               <div class="col-lg-6">

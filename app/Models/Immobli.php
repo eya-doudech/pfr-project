@@ -12,12 +12,13 @@ class Immobli extends Model
 
     use HasFactory;
     use SoftDeletes;
+    //protected $with=["categorie_id",] ;
     protected $fillable = ['designation', 'quantite', 'codeAbar', 'dateDentree', 'dateDeSortie', 'categorie_id', 'departement_id', 'user_id'];
     protected $dates = ['deleted_at'];
 
     public function category()
     {
-        return $this->belongsToMany(Categorie::class);
+        return $this->belongsTo(Categorie::class,'categorie_id');
     }
 
     public function departement()

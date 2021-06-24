@@ -13,7 +13,7 @@ class ImmobliController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+       // $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -48,6 +48,35 @@ class ImmobliController extends Controller
         return view('immobilisations.index', $this->data);
     }
 
+
+    public function indexapi()
+    {
+        $this->data['immobilisations'] = Immobli::latest()
+            ->crossJoin('departements')
+            ->crossJoin('categories')->crossJoin('users')
+            ->select([
+                "immoblis.*",
+                "categories.designation as category",
+                "departements.designation as departement",
+                "users.prenom as prenom",
+
+            ])
+            ->get();
+        $this->data['immobilisations'] = collect($this->data['immobilisations'])->keyBy('id');
+        $ctgs = array();
+        foreach ($this->data['immobilisations'] as $key => $values) :
+            $ctgs[$values->codeAbar][] = $values->category;
+        endforeach;
+        $this->data['immobilisations'] = collect($this->data['immobilisations'])->keyBy('codeAbar');
+        foreach ($this->data['immobilisations'] as $key => $values) :
+            $values->category = implode(',', $ctgs[$key]);
+        endforeach;
+        $pageSize = 10;
+        $this->data['immobilisations'] = $this->PaginationHelper($this->data['immobilisations'], $pageSize);
+
+        return $this->data;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -80,20 +109,18 @@ class ImmobliController extends Controller
             'dateDeSortie' => 'required'
         ]);
         $data = $request->all();
-        foreach ($request->input('categorie_id') as $key => $item) :
-            $data[$key] = [
+            $data = [
                 'codeAbar' => $request->input('codeAbar'),
                 'designation' => $request->input('designation'),
                 'quantite' => $request->input('quantite'),
-                'categorie_id' => $item,
+                'categorie_id' =>  $request->input('categorie_id'),
                 'departement_id' => $request->input('departement_id'),
                 'user_id' => $request->input('user_id'),
                 'dateDentree' => $request->input('dateDentree'),
                 'dateDeSortie' => $request->input('dateDeSortie')
             ];
-            Immobli::create($data[$key]);
+            Immobli::create($data);
 
-        endforeach;
 
         return redirect()->route('immobilisations.index')->with('success', 'Immobilisation bien ajoutée'); /* ki nzid donnée yhezni le*/
     }
@@ -146,7 +173,7 @@ class ImmobliController extends Controller
             if ($key !== "_method" && $key !== "_token") {
                 if ((string)$immobilisation[$key] !== $item) {
                     $data_row = [
-                        'immobli_id' => $id,
+                        'immobli_name' => $id,
                         'modified_attribute' => $key,
                         'old_val' => $immobilisation[$key],
                         'new_val' => $item

@@ -7,10 +7,10 @@
       <div class="card-header border-0">
         <div class="row align-items-center">
           <div class="col">
-            <h3 class="mb-0">Immoblisations</h3>
+            <h3 class="mb-0">Immobilisations</h3>
           </div>
           <div class="col text-right">
-            <a href="{{ route('Immoblisations.index') }}" class="btn btn-sm btn-info"><i class="fas fa-th-list"></i> </a>
+            <a href="{{ route('immobilisations.index') }}" class="btn btn-sm btn-info"><i class="fas fa-th-list"></i> </a>
           </div>
         </div>
       </div>
@@ -19,17 +19,16 @@
         <table class="table align-items-center table-flush" id="user-table">
           <thead class="thead-light">
             <tr>
-              <th scope="col">ID</th>
+            <th scope="col">ID</th>
               
               <th scope="col">Désignation</th>
-              <th scope="col">Code à bar</th>
+              <th scope="col">Code à barre</th>
               <th scope="col">Quantité</th>
-              <th scope="col">Catégories</th>
-              <th scope="col">Départements</th>
+              <th scope="col">Catégorie</th>
+              <th scope="col">Département</th>
               <th scope="col">Date d'entrée</th>
               <th scope="col">Date de sortie</th>
               <th scope="col">Actions</th>
-
           
 
             </tr>
@@ -38,7 +37,7 @@
             @if(!empty($immobilisations))
             @foreach ($immobilisations as $key => $immobilisation)
               <tr>
-                <td scope="row">{{ $key++ }}</td>
+              <td scope="row">{{ $key++ }}</td>
                 <td scope="row">{{ $immobilisation->codeAbar }}</td>
                 <td scope="row">{{ $immobilisation->designation }}</td>
                 <td scope="row">{{ $immobilisation-> quantite}}</td>
@@ -50,7 +49,7 @@
                 @if($immobilisation->status == 1)
                 <td scope="row"><button class="btn btn-sm btn-warning deleteCtg" data-btn="Yes, restore it!" data-body="your data have been restored" data-title="restore" data-ajax="GET" data-link="{{ URL('/trashed/immobilisations/restore/'.$immobilisation->id) }}" data-token="{{csrf_token()}}" >Restore</button></td>
                 @else
-                <td scope="row"><button class="btn btn-sm btn-danger deleteCtg" data-btn="Yes, delete it!" data-body="your data have been deleted" data-title="delete" data-ajax="DELETE" data-link="{{ route('immobilisations.destroy', $immobilisation->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>
+                <td scope="row"><button class="btn btn-sm btn-danger deleteCtg" data-btn="Yes, delete it!" data-body="your data have been deleted" data-title="delete" data-ajax="DELETE" data-link="{{ route('immobilisations.destroy', $categorie->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>
                 @endif
               </tr>
             @endforeach
@@ -104,3 +103,4 @@ $("document").ready(function(){
 });
 </script>
 @endsection
+

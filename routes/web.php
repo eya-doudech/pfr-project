@@ -33,6 +33,7 @@ use App\Http\Controllers\ImageUploadController;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('/users', 'App\Http\Controllers\UserController');
 
 Route::group(['middleware' => ['is_admin']], function () {
     Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
@@ -52,7 +53,6 @@ Route::group(['middleware' => ['is_admin']], function () {
     Route::get('/trashed/immobilisations/restore/{id}', [ImmobliController::class, 'restore'])->name('immobilisations.trashed.restore');
     Route::get('/history/immobilisations', [ImmobliController::class, 'history'])->name('immobilisations.trashed.history');
 
-    Route::resource('/users', 'App\Http\Controllers\UserController');
 
     Route::get('/trashed/users', [UserController::class, 'trash'])->name('users.trashed');
     Route::get('/trashed/users/restore/{id}', [UserController::class, 'restore'])->name('users.trashed.restore');
@@ -64,4 +64,10 @@ Route::group(['middleware' => ['is_admin']], function () {
     Route::post('image-upload', [ImageUploadController::class, 'imageUploadPost'])->name('image.upload.post');
 
     Route::get('/modifications', [ImmobliController::class, 'modifications']);
+    Route::get('/notfound', function () {
+        return view('notfound');
+    })->name('notfound');
+    
+
+
 });

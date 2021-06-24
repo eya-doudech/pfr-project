@@ -25,11 +25,11 @@
               <th scope="col">ID</th>
               
               <th scope="col">Désignation</th>
-              <th scope="col">User</th>
-              <th scope="col">Code à bar</th>
+              <th scope="col">Utilisateur</th>
+              <th scope="col">Code à barre</th>
               <th scope="col">Quantité</th>
-              <th scope="col">Catégories</th>
-              <th scope="col">Départements</th>
+              <th scope="col">Catégorie</th>
+              <th scope="col">Département</th>
               <th scope="col">Date d'entrée</th>
               <th scope="col">Date de sortie</th>
               <th scope="col">Actions</th>
@@ -49,8 +49,8 @@
                 <td scope="row">{{ $immobilisation->category}}</td>
                 <td scope="row">{{ $immobilisation->departement }}</td>
                 <td scope="row">{{ $immobilisation->dateDentree }}</td>
-                <td scope="row">{{ $immobilisation->dateDeSortie}}</td>
-                <td scope="row"><a href="{{ route('immobilisations.edit', $immobilisation->id) }}" class="btn btn-sm btn-primary">Modifier</a>
+                <td scope="row">{{ $immobilisation->dateDeSortie}} </td>
+                <td><a href="{{ route('immobilisations.edit', $immobilisation->id) }}" class="btn btn-sm btn-primary">Modifier</a>
                 <button class="btn btn-sm btn-danger deleteCtg" data-link="{{ route('immobilisations.destroy', $immobilisation->id) }}" data-token="{{csrf_token()}}" >Delete</button></td>
               </tr>
             @endforeach

@@ -14,6 +14,6 @@ class Categorie extends Model
     protected $fillable=['designation','famille'];
     
     public function immoblis(){
-        return $this->hasMany(Immobli::class);
+        return $this->belongsTo(Immobli::class);
     }
 }
